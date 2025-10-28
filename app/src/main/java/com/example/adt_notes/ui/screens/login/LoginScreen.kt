@@ -1,5 +1,6 @@
 package com.example.adt_notes.ui.screens.login
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,13 +19,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.adt_notes.domain.usecase.LoginUsecase
 import com.example.adt_notes.ui.components.AppBigButton
 import com.example.adt_notes.ui.components.AppOutlinedTextField
 import com.example.adt_notes.ui.theme.NunitoSansFamily
 
 @Composable
 fun LoginScreen(
-    vm: LoginScreenViewModel = LoginScreenViewModel()
+    vm: LoginScreenViewModel
 ) {
     val colorScheme = MaterialTheme.colorScheme
     val state = vm.state
@@ -54,7 +56,7 @@ fun LoginScreen(
             AppOutlinedTextField(
                 value = state.login,
                 onValueChange = { newLogin ->
-                    vm.changeLogin(newLogin)
+                    vm.changeState(login = newLogin)
                 },
                 placeholderText = "Login"
             )
@@ -62,7 +64,7 @@ fun LoginScreen(
             AppOutlinedTextField(
                 value = state.password,
                 onValueChange = { newPassword ->
-                    vm.changePassword(newPassword)
+                    vm.changeState(password = newPassword)
                 },
                 placeholderText = "Password"
             )
@@ -77,10 +79,11 @@ fun LoginScreen(
 
 }
 
+@SuppressLint("ViewModelConstructorInComposable")
 @Preview
 @Composable
 private fun LoginScreenPreview() {
     LoginScreen(
-
+        LoginScreenViewModel()
     )
 }

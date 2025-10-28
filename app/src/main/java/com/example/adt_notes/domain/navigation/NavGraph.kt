@@ -7,13 +7,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.adt_notes.ui.screens.login.LoginScreen
+import com.example.adt_notes.ui.screens.login.LoginScreenViewModel
 import com.example.adt_notes.ui.screens.onboarding.OnboardingScreen
 
 @Composable
 fun NavigationHost(
     modifier: Modifier = Modifier,
     startDestination: String = NavRoutes.ONBOARDING.route,
-    navHostController: NavHostController = rememberNavController()
+    navHostController: NavHostController = rememberNavController(),
+    loginScreenViewModel: LoginScreenViewModel = LoginScreenViewModel()
 ) {
     NavHost(
         navController = navHostController,
@@ -28,7 +30,7 @@ fun NavigationHost(
         }
 
         composable(NavRoutes.LOGIN.route) {
-            LoginScreen()
+            LoginScreen(loginScreenViewModel)
         }
 
         composable(NavRoutes.MAIN.route) {

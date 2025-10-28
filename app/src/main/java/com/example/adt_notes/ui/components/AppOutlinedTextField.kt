@@ -28,7 +28,7 @@ fun AppOutlinedTextField(
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedBorderColor = colorScheme.onBackground,
             focusedBorderColor = colorScheme.primary,
-            unfocusedTextColor = colorScheme.onSecondary,
+            unfocusedTextColor = colorScheme.onBackground.copy(alpha = 0.7f),
             focusedTextColor = colorScheme.onBackground,
             cursorColor = colorScheme.primary,
             unfocusedLabelColor = colorScheme.onBackground.copy(alpha = 0.7f),

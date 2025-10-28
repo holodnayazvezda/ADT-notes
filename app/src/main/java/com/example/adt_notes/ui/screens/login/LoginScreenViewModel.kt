@@ -14,12 +14,14 @@ class LoginScreenViewModel(
     val state
         get() = _state
 
-    fun changeLogin(newLogin: String) {
-        _state = _state.copy(login = newLogin)
-    }
-
-    fun changePassword(newPassword: String) {
-        _state = _state.copy(password = newPassword)
+    fun changeState(
+        login: String = state.login,
+        password: String = state.password
+    ) {
+        _state = _state.copy(
+            login = login,
+            password = password
+        )
     }
 
 //    fun checkAndUpdateLoginState(
