@@ -8,6 +8,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -22,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.adt_notes.ui.components.OnboardingButtonRow
 import com.example.adt_notes.ui.components.OnboardingItem
-import com.example.adt_notes.ui.components.OnboardingSingleButton
+import com.example.adt_notes.ui.components.AppBigButton
 
 
 import com.example.adt_notes.ui.theme.NunitoSansFamily
@@ -30,12 +31,12 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun OnboardingScreen(
-    onboardingScreenViewModel: OnboardingScreenViewModel = OnboardingScreenViewModel(),
+    vm: OnboardingScreenViewModel = OnboardingScreenViewModel(),
     nextScreen: () -> Unit
 ) {
     val pagerState = rememberPagerState(
         initialPage = 0,
-        pageCount = { onboardingScreenViewModel.onboardingModel.size }
+        pageCount = { vm.onboardingModel.size }
     )
     val colorScheme = MaterialTheme.colorScheme
     val coroutineScope = rememberCoroutineScope()
@@ -52,7 +53,7 @@ fun OnboardingScreen(
                 .fillMaxWidth()
         ) { page ->
             OnboardingItem(
-                onboarding = onboardingScreenViewModel.onboardingModel[page]
+                onboarding = vm.onboardingModel[page]
             )
         }
 
@@ -77,7 +78,7 @@ fun OnboardingScreen(
                 label = "button_animation"
             ) { isFirstPage ->
                 if (isFirstPage) {
-                    OnboardingSingleButton(
+                    AppBigButton(
                         onClick = {
                             coroutineScope.launch {
                                 if (pagerState.currentPage < pagerState.pageCount - 1) {
@@ -134,6 +135,9 @@ fun OnboardingScreen(
                         fontSize = 15.sp,
                         color = colorScheme.primary.copy(alpha = 0.9f)
                     ),
+                    modifier = Modifier.clickable {
+                        nextScreen()
+                    }
                 )
             }
         }

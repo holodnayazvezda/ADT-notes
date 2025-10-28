@@ -23,29 +23,6 @@ import com.example.adt_notes.R
 import com.example.adt_notes.ui.theme.NunitoSansFamily
 
 @Composable
-fun OnboardingSingleButton(onClick: () -> Unit, text: String) {
-    val colorScheme = MaterialTheme.colorScheme
-    Button(
-        onClick = onClick,
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp),
-        shape = RoundedCornerShape(10.dp)
-    ) {
-        Text(
-            text = text,
-            style = TextStyle(
-                fontFamily = NunitoSansFamily,
-                fontWeight = FontWeight.Bold,
-                fontSize = 17.sp,
-                color = colorScheme.background
-            )
-        )
-    }
-}
-
-
-@Composable
 fun OnboardingButtonRow(
     onNext: () -> Unit,
     onBack: () -> Unit,

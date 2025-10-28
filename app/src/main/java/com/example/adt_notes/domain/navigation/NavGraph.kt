@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.adt_notes.ui.screens.login.LoginScreen
 import com.example.adt_notes.ui.screens.onboarding.OnboardingScreen
 
 @Composable
@@ -21,9 +22,13 @@ fun NavigationHost(
         composable(NavRoutes.ONBOARDING.route) {
             OnboardingScreen(
                 nextScreen = {
-                    navHostController.navigate(NavRoutes.MAIN.route)
+                    navHostController.navigate(NavRoutes.LOGIN.route)
                 }
             )
+        }
+
+        composable(NavRoutes.LOGIN.route) {
+            LoginScreen()
         }
 
         composable(NavRoutes.MAIN.route) {
