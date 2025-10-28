@@ -8,7 +8,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.adt_notes.ui.screens.login.LoginScreen
 import com.example.adt_notes.ui.screens.login.LoginScreenViewModel
+import com.example.adt_notes.ui.screens.main.MainScreen
 import com.example.adt_notes.ui.screens.onboarding.OnboardingScreen
+import com.example.adt_notes.ui.screens.register.RegisterScreen
 
 @Composable
 fun NavigationHost(
@@ -30,11 +32,23 @@ fun NavigationHost(
         }
 
         composable(NavRoutes.LOGIN.route) {
-            LoginScreen(loginScreenViewModel)
+            LoginScreen(
+                vm = loginScreenViewModel,
+                navigateToRegisterScreen = {
+                    navHostController.navigate(NavRoutes.REGISTER.route)
+                },
+                navigateToMainScreen = {
+                    navHostController.navigate(NavRoutes.MAIN.route)
+                }
+            )
+        }
+
+        composable(NavRoutes.REGISTER.route) {
+            RegisterScreen()
         }
 
         composable(NavRoutes.MAIN.route) {
-
+            MainScreen()
         }
     }
 }
