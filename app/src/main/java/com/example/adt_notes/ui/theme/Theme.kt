@@ -6,7 +6,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
-private val DarkColorScheme = darkColorScheme(
+private val LightColorScheme = lightColorScheme(
     background = WhiteBackgroundPrimary,
     onBackground = WhiteTextPrimary,
     primary = AccentBlue,
@@ -15,7 +15,7 @@ private val DarkColorScheme = darkColorScheme(
     onSecondary = WhiteTextSecondary
 )
 
-private val LightColorScheme = lightColorScheme(
+private val DarkColorScheme = darkColorScheme(
     background = DarkBackgroundPrimary,
     onBackground = DarkTextPrimary,
     primary = AccentBlue,

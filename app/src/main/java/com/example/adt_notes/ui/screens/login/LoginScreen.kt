@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -19,7 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.adt_notes.domain.usecase.LoginUsecase
+import com.example.adt_notes.ui.components.AppAlertDialog
 import com.example.adt_notes.ui.components.AppBigButton
 import com.example.adt_notes.ui.components.AppOutlinedTextField
 import com.example.adt_notes.ui.theme.NunitoSansFamily
@@ -30,11 +32,14 @@ fun LoginScreen(
 ) {
     val colorScheme = MaterialTheme.colorScheme
     val state = vm.state
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 30.dp)
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+            .imePadding()
+            .systemBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(Modifier.weight(0.2f))
@@ -46,7 +51,7 @@ fun LoginScreen(
                 fontSize = 60.sp,
                 color = colorScheme.onBackground
             ),
-            modifier = Modifier.weight(0.1f)
+            modifier = Modifier.weight(0.2f)
         )
         Spacer(Modifier.height(40.dp))
         Column(
@@ -70,11 +75,25 @@ fun LoginScreen(
             )
             Spacer(Modifier.height(50.dp))
             AppBigButton(
-                onClick = {},
+                onClick = { vm.buttonNextPressed() },
                 text = "Next"
             )
         }
 
+    }
+    if (state.isError) {
+        AppAlertDialog(
+            onDismissRequest = { vm.changeState(
+                isError = false,
+                errorString = ""
+            ) },
+            onConfirmation = { vm.changeState(
+                isError = false,
+                errorString = ""
+            ) },
+            dialogTitle = "That's an error",
+            dialogText = state.errorString
+        )
     }
 
 }

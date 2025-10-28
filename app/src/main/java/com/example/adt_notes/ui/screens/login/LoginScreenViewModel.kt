@@ -16,39 +16,43 @@ class LoginScreenViewModel(
 
     fun changeState(
         login: String = state.login,
-        password: String = state.password
+        password: String = state.password,
+        isError: Boolean = state.isError,
+        errorString: String = state.errorString
     ) {
         _state = _state.copy(
             login = login,
-            password = password
+            password = password,
+            isError = isError,
+            errorString = errorString
         )
     }
 
-//    fun checkAndUpdateLoginState(
-//        login: String,
-//        password: String
-//    ) {
-//        val loginError = loginUsecase.checkLogin(login)
-//        if (loginError.isNotEmpty()) {
-//            state = state.copy(
-//                isError = true,
-//                errorString = loginError
-//            )
-//            return
-//        }
-//
-//        val passwordError = loginUsecase.checkPassword(password)
-//        if (passwordError.isNotEmpty()) {
-//            state = state.copy(
-//                isError = true,
-//                errorString = passwordError
-//            )
-//            return
-//        }
-//
-//        state = state.copy(
-//            login = login,
-//            password = password
-//        )
-//    }
+    fun buttonNextPressed() {
+        checkLogin()
+        if (!state.isError) checkPassword()
+        if (!state.isError) {
+//            TODO: отравить запрос на проверку данных на сервер и выполнить вход
+        }
+    }
+
+    private fun checkPassword() {
+        val passwordError = loginUsecase.checkPassword(state.password)
+        if (passwordError.isNotEmpty()) {
+            _state = _state.copy(
+                isError = true,
+                errorString = passwordError
+            )
+        }
+    }
+
+    private fun checkLogin() {
+        val loginError = loginUsecase.checkLogin(state.login)
+        if (loginError.isNotEmpty()) {
+            _state = _state.copy(
+                isError = true,
+                errorString = loginError
+            )
+        }
+    }
 }
