@@ -2,10 +2,15 @@ package com.example.adt_notes.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+// светлая тема
+val WhiteBackgroundPrimary = Color(0xFFF9F9F9)
+val WhiteBackgroundSecondary = Color(0xFFE5E5E5)
+val WhiteTextPrimary = Color(0xFF1C2121)
+val WhiteTextSecondary = Color(0xFF979797)
+val AccentBlue = Color(0xFF007AFF)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+// темная тема
+val DarkBackgroundPrimary = Color(0xFF121212)
+val DarkBackgroundSecondary = Color(0xFF1E1E1E)
+val DarkTextPrimary = Color(0xFFF9F9F9)
+val DarkTextSecondary = Color(0xFFB3B3B3)

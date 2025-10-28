@@ -1,0 +1,33 @@
+package com.example.adt_notes.domain.navigation
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.adt_notes.ui.screens.onboarding.OnboardingScreen
+
+@Composable
+fun NavigationHost(
+    modifier: Modifier = Modifier,
+    startDestination: String = NavRoutes.ONBOARDING.route,
+    navHostController: NavHostController = rememberNavController()
+) {
+    NavHost(
+        navController = navHostController,
+        startDestination = startDestination
+    ) {
+        composable(NavRoutes.ONBOARDING.route) {
+            OnboardingScreen(
+                nextScreen = {
+                    navHostController.navigate(NavRoutes.MAIN.route)
+                }
+            )
+        }
+
+        composable(NavRoutes.MAIN.route) {
+
+        }
+    }
+}
