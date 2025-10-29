@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.adt_notes.data.states.LoginState
 import com.example.adt_notes.domain.usecase.LoginUsecase
+import kotlin.text.ifEmpty
 
 class LoginScreenViewModel(
     val loginUsecase: LoginUsecase = LoginUsecase()
@@ -29,29 +30,23 @@ class LoginScreenViewModel(
     }
 
     fun buttonNextPressed() {
-        checkLogin()
-        if (!state.isError) checkPassword()
+        checkOnErrors()
         if (!state.isError) {
 //            TODO: отравить запрос на проверку данных на сервер и выполнить вход
         }
     }
 
-    private fun checkPassword() {
+    private fun checkOnErrors() {
         val passwordError = loginUsecase.checkPassword(state.password)
-        if (passwordError.isNotEmpty()) {
-            _state = _state.copy(
-                isError = true,
-                errorString = passwordError
-            )
-        }
-    }
-
-    private fun checkLogin() {
         val loginError = loginUsecase.checkLogin(state.login)
-        if (loginError.isNotEmpty()) {
+        val errorString = loginError.ifEmpty {
+            passwordError.ifEmpty { "" }
+        }
+
+        if (errorString.isNotEmpty()) {
             _state = _state.copy(
                 isError = true,
-                errorString = loginError
+                errorString = errorString
             )
         }
     }

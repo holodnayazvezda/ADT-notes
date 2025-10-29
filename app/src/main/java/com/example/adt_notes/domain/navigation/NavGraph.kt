@@ -11,13 +11,15 @@ import com.example.adt_notes.ui.screens.login.LoginScreenViewModel
 import com.example.adt_notes.ui.screens.main.MainScreen
 import com.example.adt_notes.ui.screens.onboarding.OnboardingScreen
 import com.example.adt_notes.ui.screens.register.RegisterScreen
+import com.example.adt_notes.ui.screens.register.RegisterScreenViewModel
 
 @Composable
 fun NavigationHost(
     modifier: Modifier = Modifier,
     startDestination: String = NavRoutes.ONBOARDING.route,
     navHostController: NavHostController = rememberNavController(),
-    loginScreenViewModel: LoginScreenViewModel = LoginScreenViewModel()
+    loginScreenViewModel: LoginScreenViewModel = LoginScreenViewModel(),
+    registerScreenViewModel: RegisterScreenViewModel = RegisterScreenViewModel()
 ) {
     NavHost(
         navController = navHostController,
@@ -44,7 +46,15 @@ fun NavigationHost(
         }
 
         composable(NavRoutes.REGISTER.route) {
-            RegisterScreen()
+            RegisterScreen(
+                vm = registerScreenViewModel,
+                navigateToLoginScreen = {
+                    navHostController.navigate(NavRoutes.LOGIN.route)
+                },
+                navigateToMainScreen = {
+                    navHostController.navigate(NavRoutes.MAIN.route)
+                }
+            )
         }
 
         composable(NavRoutes.MAIN.route) {
