@@ -86,7 +86,8 @@ fun LoginScreen(
                 onValueChange = { newPassword ->
                     vm.changeState(password = newPassword)
                 },
-                placeholderText = "Password"
+                placeholderText = "Password",
+                withTextHiding = true
             )
             Spacer(Modifier.height(50.dp))
             AppBigButton(

@@ -86,7 +86,8 @@ fun RegisterScreen(
                 onValueChange = { newPassword ->
                     vm.changeState(password = newPassword)
                 },
-                placeholderText = "Password"
+                placeholderText = "Password",
+                withTextHiding = true
             )
             Spacer(Modifier.height(30.dp))
             AppOutlinedTextField(
@@ -94,7 +95,8 @@ fun RegisterScreen(
                 onValueChange = { newConfirmPassword ->
                     vm.changeState(confirmPassword = newConfirmPassword)
                 },
-                placeholderText = "Confirm Password"
+                placeholderText = "Confirm Password",
+                withTextHiding = true
             )
             Spacer(Modifier.height(50.dp))
             AppBigButton(
