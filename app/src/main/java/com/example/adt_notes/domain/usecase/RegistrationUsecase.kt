@@ -12,6 +12,14 @@ class RegistrationUsecase(
         return ""
     }
 
+    fun checkName(name: String): String {
+        return if (name.isEmpty()) {
+            "Name not specified"
+        } else {
+            ""
+        }
+    }
+
     fun checkPassword(password: String): String {
         if (password.isEmpty()) {
             return "Password not specified"

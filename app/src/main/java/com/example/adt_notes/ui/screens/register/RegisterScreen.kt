@@ -83,6 +83,14 @@ fun RegisterScreen(
             Spacer(Modifier.height(30.dp))
             AppOutlinedTextField(
                 value = state.password,
+                onValueChange = { newName ->
+                    vm.changeState(name = newName)
+                },
+                placeholderText = "Name"
+            )
+            Spacer(Modifier.height(30.dp))
+            AppOutlinedTextField(
+                value = state.password,
                 onValueChange = { newPassword ->
                     vm.changeState(password = newPassword)
                 },
