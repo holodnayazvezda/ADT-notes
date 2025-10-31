@@ -1,4 +1,4 @@
-package com.example.adt_notes.presentation.components
+package com.example.adt_notes.presentation.components.notes_screen_top_up_bar
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -32,7 +32,8 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NotesScreenTopAppBar(
-    drawerState: DrawerState
+    drawerState: DrawerState,
+    notesScreenTopAppBarViewModel: NotesScreenTopAppBarViewModel = NotesScreenTopAppBarViewModel()
 ) {
     val colorScheme = MaterialTheme.colorScheme
     val scope = rememberCoroutineScope()
@@ -53,7 +54,7 @@ fun NotesScreenTopAppBar(
                 )
                 Spacer(Modifier.height(5.dp))
                 Text(
-                    text = "22 December, 2021",
+                    text = notesScreenTopAppBarViewModel.date,
                     style = TextStyle(
                         fontFamily = NunitoSansFamily,
                         fontWeight = FontWeight.Normal,

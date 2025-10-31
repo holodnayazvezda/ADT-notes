@@ -4,7 +4,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-class NotesUsecase {
+class NotesScreenTopAppBarUsecase {
     fun getFormatedSystemDate(): String {
         val today: LocalDate = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("dd MMMM, yyyy", Locale.ENGLISH)
