@@ -4,13 +4,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.adt_notes.data.states.LoginState
 import com.example.adt_notes.domain.usecase.LoginUsecase
 import kotlin.text.ifEmpty
 
 class LoginScreenViewModel(
-    val loginUsecase: LoginUsecase = LoginUsecase()
-): ViewModel() {
+    val loginUsecase: LoginUsecase = LoginUsecase(),
+    val navigateToNextScreen: () -> Unit
+): ViewModel(), ViewModelProvider.Factory {
     private var _state by mutableStateOf(LoginState())
     val state
         get() = _state
@@ -33,6 +35,7 @@ class LoginScreenViewModel(
         checkOnErrors()
         if (!state.isError) {
 //            TODO: отравить запрос на проверку данных на сервер и выполнить вход
+            navigateToNextScreen()
         }
     }
 

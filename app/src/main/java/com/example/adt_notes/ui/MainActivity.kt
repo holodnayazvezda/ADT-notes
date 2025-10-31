@@ -1,4 +1,4 @@
-package com.example.adt_notes
+package com.example.adt_notes.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,12 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
-import com.example.adt_notes.domain.navigation.NavigationHost
+import com.example.adt_notes.domain.navigation.global.NavigationHost
 import com.example.adt_notes.ui.theme.ADTnotesTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,9 +19,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ADTnotesTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(modifier = Modifier.Companion.fillMaxSize()) { innerPadding ->
                     NavigationHost(
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.Companion.padding(innerPadding)
                     )
                 }
             }

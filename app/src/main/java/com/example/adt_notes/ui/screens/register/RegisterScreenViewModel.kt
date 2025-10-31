@@ -8,7 +8,8 @@ import com.example.adt_notes.data.states.RegistrationState
 import com.example.adt_notes.domain.usecase.RegistrationUsecase
 
 class RegisterScreenViewModel(
-    val registrationUsecase: RegistrationUsecase = RegistrationUsecase()
+    val registrationUsecase: RegistrationUsecase = RegistrationUsecase(),
+    val navigateToNextScreen: () -> Unit
 ) : ViewModel() {
     private var _state by mutableStateOf(RegistrationState())
     val state
@@ -38,6 +39,7 @@ class RegisterScreenViewModel(
         checkOnErrors()
         if (!state.isError) {
 //            TODO: отравить запрос на проверку данных на сервер и выполнить вход
+            navigateToNextScreen()
         }
     }
 

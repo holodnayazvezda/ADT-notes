@@ -164,7 +164,9 @@ fun LoginScreen(
 @Composable
 private fun LoginScreenPreview() {
     LoginScreen(
-        LoginScreenViewModel(),
+        LoginScreenViewModel(
+            navigateToNextScreen = {}
+        ),
         {},
         {}
     )

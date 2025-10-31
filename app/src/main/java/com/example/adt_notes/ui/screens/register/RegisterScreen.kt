@@ -181,7 +181,9 @@ fun RegisterScreen(
 @Composable
 private fun RegisterScreenPreview() {
     RegisterScreen(
-        vm = RegisterScreenViewModel(),
+        vm = RegisterScreenViewModel(
+            navigateToNextScreen = {}
+        ),
         navigateToLoginScreen = {},
         navigateToMainScreen = {}
     )

@@ -1,5 +1,6 @@
-package com.example.adt_notes.domain.navigation
+package com.example.adt_notes.domain.navigation.global
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -13,14 +14,21 @@ import com.example.adt_notes.ui.screens.onboarding.OnboardingScreen
 import com.example.adt_notes.ui.screens.register.RegisterScreen
 import com.example.adt_notes.ui.screens.register.RegisterScreenViewModel
 
+@SuppressLint("ViewModelConstructorInComposable")
 @Composable
 fun NavigationHost(
     modifier: Modifier = Modifier,
     startDestination: String = NavRoutes.ONBOARDING.route,
     navHostController: NavHostController = rememberNavController(),
-    loginScreenViewModel: LoginScreenViewModel = LoginScreenViewModel(),
-    registerScreenViewModel: RegisterScreenViewModel = RegisterScreenViewModel()
+    bottomNavHostController: NavHostController = rememberNavController()
 ) {
+    val loginScreenViewModel = LoginScreenViewModel(
+        navigateToNextScreen = { navHostController.navigate(NavRoutes.MAIN.route) }
+    )
+    val registerScreenViewModel = RegisterScreenViewModel(
+        navigateToNextScreen = { navHostController.navigate(NavRoutes.MAIN.route) }
+    )
+
     NavHost(
         navController = navHostController,
         startDestination = startDestination
@@ -58,7 +66,9 @@ fun NavigationHost(
         }
 
         composable(NavRoutes.MAIN.route) {
-            MainScreen()
+            MainScreen(
+                bottomNavController = bottomNavHostController
+            )
         }
     }
 }

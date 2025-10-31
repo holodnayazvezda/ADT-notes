@@ -1,4 +1,4 @@
-package com.example.adt_notes.domain.navigation
+package com.example.adt_notes.domain.navigation.global
 
 enum class NavRoutes(
     val route: String
