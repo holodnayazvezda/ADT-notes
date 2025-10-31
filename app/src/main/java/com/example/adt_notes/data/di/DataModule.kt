@@ -17,7 +17,7 @@ val dataModule = module {
 
     single {
         Retrofit.Builder()
-            .baseUrl("http://45.151.30.221:1488/api/v1/")
+            .baseUrl("http://45.151.30.221:1488/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()

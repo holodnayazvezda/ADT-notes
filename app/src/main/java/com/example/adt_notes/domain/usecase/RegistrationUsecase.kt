@@ -13,11 +13,13 @@ class RegistrationUsecase(
         state: RegistrationState
     ): TokenPair {
         return repository.register(
+            name = state.name,
             email = state.email,
             password = state.password,
             role = "USER"
         )
     }
+
     fun checkEmail(email: String): String {
         if (email.isEmpty()) {
             return "Email not specified"

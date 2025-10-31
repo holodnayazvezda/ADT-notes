@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <!-- Разреши свой домен или IP -->
+        <domain includeSubdomains="true">45.151.30.221</domain>
+    </domain-config>
+
+    <!-- Можно разрешить весь HTTP трафик (НЕ для продакшена!) -->
+    <!-- <base-config cleartextTrafficPermitted="true" /> -->
+</network-security-config>

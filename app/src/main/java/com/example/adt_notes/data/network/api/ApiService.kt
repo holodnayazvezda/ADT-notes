@@ -7,12 +7,12 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface ApiService {
-    @POST("/auth/register")
+    @POST("/api/v1/auth/register")
     suspend fun register(
         @Body request: RegisterRequestDto
     ): TokenPair
 
-    @POST("/auth/authenticate")
+    @POST("/api/v1/auth/authenticate")
     suspend fun authenticate(
         @Body request: AuthRequestDto
     ): TokenPair

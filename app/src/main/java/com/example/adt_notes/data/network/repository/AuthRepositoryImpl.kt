@@ -10,12 +10,14 @@ class AuthRepositoryImpl(
     private val api: ApiService
 ) : AuthRepository {
     override suspend fun register(
+        name: String,
         email: String,
         password: String,
         role: String
     ): TokenPair {
         return api.register(
             RegisterRequestDto(
+                name = name,
                 email = email,
                 password = password,
                 role = role
