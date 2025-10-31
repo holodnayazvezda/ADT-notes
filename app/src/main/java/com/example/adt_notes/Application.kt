@@ -2,7 +2,7 @@ package com.example.adt_notes
 
 import com.example.adt_notes.data.di.dataModule
 import com.example.adt_notes.domain.di.domainModule
-import com.example.adt_notes.ui.di.presentationModule
+import com.example.adt_notes.presentation.di.presentationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
