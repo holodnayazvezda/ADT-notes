@@ -1,6 +1,11 @@
 package com.example.adt_notes.data.network.dto
 
+import com.google.gson.annotations.SerializedName
+
 data class TokenPair(
-    val access_token: String,
-    val refresh_token: String?
+    @SerializedName("access_token")
+    val accessToken: String,
+
+    @SerializedName("refresh_token")
+    val refreshToken: String?
 )
