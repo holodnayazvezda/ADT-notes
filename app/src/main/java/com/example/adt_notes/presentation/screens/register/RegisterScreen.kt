@@ -175,16 +175,3 @@ fun RegisterScreen(
     }
 
 }
-
-@SuppressLint("ViewModelConstructorInComposable")
-@Preview
-@Composable
-private fun RegisterScreenPreview() {
-    RegisterScreen(
-        vm = RegisterScreenViewModel(
-            navigateToNextScreen = {}
-        ),
-        navigateToLoginScreen = {},
-        navigateToMainScreen = {}
-    )
-}

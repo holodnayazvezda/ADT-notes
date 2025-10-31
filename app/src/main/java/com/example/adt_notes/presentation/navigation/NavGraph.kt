@@ -14,6 +14,8 @@ import com.example.adt_notes.presentation.screens.main.MainScreen
 import com.example.adt_notes.presentation.screens.onboarding.OnboardingScreen
 import com.example.adt_notes.presentation.screens.register.RegisterScreen
 import com.example.adt_notes.presentation.screens.register.RegisterScreenViewModel
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @SuppressLint("ViewModelConstructorInComposable")
 @Composable
@@ -26,8 +28,12 @@ fun NavigationHost(
     val loginScreenViewModel = LoginScreenViewModel(
         navigateToNextScreen = { navHostController.navigate(NavRoutes.MAIN.route) }
     )
-    val registerScreenViewModel = RegisterScreenViewModel(
-        navigateToNextScreen = { navHostController.navigate(NavRoutes.MAIN.route) }
+    val registerScreenViewModel: RegisterScreenViewModel = koinViewModel(
+        parameters = {
+            parametersOf(
+                { navHostController.navigate(NavRoutes.MAIN.route) }
+            )
+        }
     )
 
     NavHost(

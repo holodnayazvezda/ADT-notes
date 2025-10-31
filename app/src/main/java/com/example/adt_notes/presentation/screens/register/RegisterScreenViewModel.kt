@@ -4,11 +4,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.adt_notes.data.states.RegistrationState
 import com.example.adt_notes.domain.usecase.RegistrationUsecase
+import kotlinx.coroutines.launch
 
 class RegisterScreenViewModel(
-    val registrationUsecase: RegistrationUsecase = RegistrationUsecase(),
+    val registrationUsecase: RegistrationUsecase,
     val navigateToNextScreen: () -> Unit
 ) : ViewModel() {
     private var _state by mutableStateOf(RegistrationState())
@@ -38,8 +40,20 @@ class RegisterScreenViewModel(
     fun buttonNextPressed() {
         checkOnErrors()
         if (!state.isError) {
-//            TODO: отравить запрос на проверку данных на сервер и выполнить вход
-            navigateToNextScreen()
+            changeState(isLoading = true)
+            viewModelScope.launch {
+                try {
+                    val tokenPair = registrationUsecase.invoke(state)
+                    changeState(isLoading = false)
+                    navigateToNextScreen()
+                } catch (e: Exception) {
+                    changeState(
+                        isLoading = false,
+                        isError = true,
+                        errorString = e.message ?: "Unknown error"
+                    )
+                }
+            }
         }
     }
 
