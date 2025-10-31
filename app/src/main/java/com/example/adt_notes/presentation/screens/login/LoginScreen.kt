@@ -74,11 +74,11 @@ fun LoginScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AppOutlinedTextField(
-                value = state.login,
-                onValueChange = { newLogin ->
-                    vm.changeState(login = newLogin)
+                value = state.email,
+                onValueChange = { newEmail ->
+                    vm.changeState(email = newEmail)
                 },
-                placeholderText = "Login"
+                placeholderText = "Email"
             )
             Spacer(Modifier.height(30.dp))
             AppOutlinedTextField(

@@ -3,14 +3,19 @@ package com.example.adt_notes.domain.usecase
 class RegistrationUsecase(
 
 ) {
-    fun checkLogin(login: String): String {
-        if (login.isEmpty()) {
-            return "Login not specified"
-        } else if (login.length <= 3) {
-            return "Login is to short"
+    fun checkEmail(email: String): String {
+        if (email.isEmpty()) {
+            return "Email not specified"
         }
+
+        val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$".toRegex()
+        if (!emailRegex.matches(email)) {
+            return "Invalid email format"
+        }
+
         return ""
     }
+
 
     fun checkName(name: String): String {
         return if (name.isEmpty()) {

@@ -16,8 +16,8 @@ class RegisterScreenViewModel(
         get() = _state
 
     fun changeState(
-        login: String = state.login,
         name: String = state.name,
+        email: String = state.email,
         password: String = state.password,
         confirmPassword: String = state.confirmPassword,
         isLoading: Boolean = state.isLoading,
@@ -25,8 +25,8 @@ class RegisterScreenViewModel(
         errorString: String = state.errorString
     ) {
         _state = _state.copy(
-            login = login,
             name = name,
+            email = email,
             password = password,
             confirmPassword = confirmPassword,
             isLoading = isLoading,
@@ -44,15 +44,15 @@ class RegisterScreenViewModel(
     }
 
     private fun checkOnErrors() {
-        val loginError = registrationUsecase.checkLogin(state.login)
         val nameError = registrationUsecase.checkName(state.name)
+        val loginError = registrationUsecase.checkEmail(state.email)
         val passwordError = registrationUsecase.checkPassword(state.password)
         val confirmPasswordError = registrationUsecase.checkConfirmPassword(
             state.password,
             state.confirmPassword
         )
-        val errorString = loginError.ifEmpty {
-            nameError.ifEmpty {
+        val errorString = nameError.ifEmpty {
+            loginError.ifEmpty {
                 passwordError.ifEmpty {
                     confirmPasswordError.ifEmpty { "" }
                 }

@@ -74,19 +74,19 @@ fun RegisterScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AppOutlinedTextField(
-                value = state.login,
-                onValueChange = { newLogin ->
-                    vm.changeState(login = newLogin)
-                },
-                placeholderText = "Login"
-            )
-            Spacer(Modifier.height(30.dp))
-            AppOutlinedTextField(
-                value = state.password,
+                value = state.name,
                 onValueChange = { newName ->
                     vm.changeState(name = newName)
                 },
                 placeholderText = "Name"
+            )
+            Spacer(Modifier.height(30.dp))
+            AppOutlinedTextField(
+                value = state.email,
+                onValueChange = { newEmail ->
+                    vm.changeState(email = newEmail)
+                },
+                placeholderText = "Email"
             )
             Spacer(Modifier.height(30.dp))
             AppOutlinedTextField(

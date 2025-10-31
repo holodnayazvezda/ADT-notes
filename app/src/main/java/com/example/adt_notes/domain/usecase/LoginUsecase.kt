@@ -3,9 +3,9 @@ package com.example.adt_notes.domain.usecase
 class LoginUsecase(
 
 ) {
-    fun checkLogin(login: String): String {
-        return if (login.isEmpty()) {
-            "Login not specified"
+    fun checkEmail(email: String): String {
+        return if (email.isEmpty()) {
+            "Email not specified"
         } else {
             ""
         }

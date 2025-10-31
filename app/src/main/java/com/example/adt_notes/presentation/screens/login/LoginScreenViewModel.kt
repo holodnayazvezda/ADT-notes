@@ -18,13 +18,13 @@ class LoginScreenViewModel(
         get() = _state
 
     fun changeState(
-        login: String = state.login,
+        email: String = state.email,
         password: String = state.password,
         isError: Boolean = state.isError,
         errorString: String = state.errorString
     ) {
         _state = _state.copy(
-            login = login,
+            email = email,
             password = password,
             isError = isError,
             errorString = errorString
@@ -40,9 +40,9 @@ class LoginScreenViewModel(
     }
 
     private fun checkOnErrors() {
+        val emailError = loginUsecase.checkEmail(state.email)
         val passwordError = loginUsecase.checkPassword(state.password)
-        val loginError = loginUsecase.checkLogin(state.login)
-        val errorString = loginError.ifEmpty {
+        val errorString = emailError.ifEmpty {
             passwordError.ifEmpty { "" }
         }
 
