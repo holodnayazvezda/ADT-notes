@@ -14,24 +14,7 @@ import com.example.adt_notes.presentation.components.notes_screen_top_up_bar.Not
 @Composable
 fun NotesScreen() {
     val colorScheme = MaterialTheme.colorScheme
-    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 
-    ModalNavigationDrawer(
-        drawerState = drawerState,
-        drawerContent = {
-            ModalDrawerSheet {
-                Column {
-                    Text(
-                        text = "Эщькере"
-                    )
-                }
-            }
-        }
-    ) {
-        NotesScreenTopAppBar(
-            drawerState = drawerState
-        )
-    }
 
 
 }

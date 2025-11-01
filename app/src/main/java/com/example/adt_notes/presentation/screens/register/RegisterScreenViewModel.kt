@@ -44,8 +44,8 @@ class RegisterScreenViewModel(
             viewModelScope.launch {
                 try {
                     val tokenPair = registrationUsecase.invoke(state)
-                    changeState(isLoading = false)
                     navigateToNextScreen()
+                    changeState(isLoading = false)
                 } catch (e: Exception) {
                     changeState(
                         isLoading = false,

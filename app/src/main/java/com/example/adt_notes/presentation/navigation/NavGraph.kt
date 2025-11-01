@@ -66,9 +66,6 @@ fun NavigationHost(
                 vm = registerScreenViewModel,
                 navigateToLoginScreen = {
                     navHostController.navigate(NavRoutes.LOGIN.route)
-                },
-                navigateToMainScreen = {
-                    navHostController.navigate(NavRoutes.MAIN.route)
                 }
             )
         }

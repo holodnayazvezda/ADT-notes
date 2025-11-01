@@ -36,142 +36,150 @@ import androidx.compose.ui.unit.sp
 import com.example.adt_notes.presentation.components.AppAlertDialog
 import com.example.adt_notes.presentation.components.AppBigButton
 import com.example.adt_notes.presentation.components.AppOutlinedTextField
+import com.example.adt_notes.presentation.components.FullScreenLoadingAnimation
 import com.example.adt_notes.presentation.theme.NunitoSansFamily
 
 @Composable
 fun RegisterScreen(
     vm: RegisterScreenViewModel,
-    navigateToLoginScreen: () -> Unit,
-    navigateToMainScreen: () -> Unit
+    navigateToLoginScreen: () -> Unit
 ) {
     val colorScheme = MaterialTheme.colorScheme
     val state = vm.state
     var layoutResult by remember { mutableStateOf<TextLayoutResult?>(null) }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 30.dp)
-            .imePadding()
-            .systemBarsPadding()
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(Modifier.weight(0.1f))
-        Text(
-            text = "Register",
-            style = TextStyle(
-                fontFamily = NunitoSansFamily,
-                fontWeight = FontWeight.Bold,
-                fontSize = 60.sp,
-                color = colorScheme.onBackground
-            ),
-            modifier = Modifier.weight(0.15f)
-        )
-        Spacer(Modifier.height(40.dp))
+    if (!state.isLoading) {
         Column(
-            Modifier.fillMaxWidth().padding(horizontal = 20.dp).weight(0.7f),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 30.dp)
+                .imePadding()
+                .systemBarsPadding()
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            AppOutlinedTextField(
-                value = state.name,
-                onValueChange = { newName ->
-                    vm.changeState(name = newName)
-                },
-                placeholderText = "Name"
+            Spacer(Modifier.weight(0.1f))
+            Text(
+                text = "Register",
+                style = TextStyle(
+                    fontFamily = NunitoSansFamily,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 60.sp,
+                    color = colorScheme.onBackground
+                ),
+                modifier = Modifier.weight(0.15f)
             )
-            Spacer(Modifier.height(30.dp))
-            AppOutlinedTextField(
-                value = state.email,
-                onValueChange = { newEmail ->
-                    vm.changeState(email = newEmail)
-                },
-                placeholderText = "Email"
-            )
-            Spacer(Modifier.height(30.dp))
-            AppOutlinedTextField(
-                value = state.password,
-                onValueChange = { newPassword ->
-                    vm.changeState(password = newPassword)
-                },
-                placeholderText = "Password",
-                withTextHiding = true
-            )
-            Spacer(Modifier.height(30.dp))
-            AppOutlinedTextField(
-                value = state.confirmPassword,
-                onValueChange = { newConfirmPassword ->
-                    vm.changeState(confirmPassword = newConfirmPassword)
-                },
-                placeholderText = "Confirm Password",
-                withTextHiding = true
-            )
-            Spacer(Modifier.height(50.dp))
-            AppBigButton(
-                onClick = { vm.buttonNextPressed() },
-                text = "Next"
-            )
-            Spacer(Modifier.height(20.dp))
+            Spacer(Modifier.height(40.dp))
+            Column(
+                Modifier.fillMaxWidth().padding(horizontal = 20.dp).weight(0.7f),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                AppOutlinedTextField(
+                    value = state.name,
+                    onValueChange = { newName ->
+                        vm.changeState(name = newName)
+                    },
+                    placeholderText = "Name"
+                )
+                Spacer(Modifier.height(30.dp))
+                AppOutlinedTextField(
+                    value = state.email,
+                    onValueChange = { newEmail ->
+                        vm.changeState(email = newEmail)
+                    },
+                    placeholderText = "Email"
+                )
+                Spacer(Modifier.height(30.dp))
+                AppOutlinedTextField(
+                    value = state.password,
+                    onValueChange = { newPassword ->
+                        vm.changeState(password = newPassword)
+                    },
+                    placeholderText = "Password",
+                    withTextHiding = true
+                )
+                Spacer(Modifier.height(30.dp))
+                AppOutlinedTextField(
+                    value = state.confirmPassword,
+                    onValueChange = { newConfirmPassword ->
+                        vm.changeState(confirmPassword = newConfirmPassword)
+                    },
+                    placeholderText = "Confirm Password",
+                    withTextHiding = true
+                )
+                Spacer(Modifier.height(50.dp))
+                AppBigButton(
+                    onClick = { vm.buttonNextPressed() },
+                    text = "Next"
+                )
+                Spacer(Modifier.height(20.dp))
 
-            val annotatedString = buildAnnotatedString {
-                withStyle(
-                    style = SpanStyle(
-                        color = colorScheme.onBackground,
-                        fontSize = 16.sp,
-                        fontFamily = NunitoSansFamily
-                    )
-                ) {
-                    append(text = "Already have an account? ")
-                }
-
-                withAnnotation("LOGIN", "login") {
+                val annotatedString = buildAnnotatedString {
                     withStyle(
                         style = SpanStyle(
-                            color = colorScheme.primary,
+                            color = colorScheme.onBackground,
                             fontSize = 16.sp,
-                            fontFamily = NunitoSansFamily,
-                            fontWeight = FontWeight.Bold
-                        ),
+                            fontFamily = NunitoSansFamily
+                        )
                     ) {
+                        append(text = "Already have an account? ")
+                    }
+
+                    withAnnotation("LOGIN", "login") {
+                        withStyle(
+                            style = SpanStyle(
+                                color = colorScheme.primary,
+                                fontSize = 16.sp,
+                                fontFamily = NunitoSansFamily,
+                                fontWeight = FontWeight.Bold
+                            ),
+                        ) {
                             append(text = "Login")
+                        }
                     }
                 }
-            }
 
-            BasicText(
-                text = annotatedString,
-                modifier = Modifier
-                    .pointerInput(Unit) {
-                        detectTapGestures { offset ->
-                            layoutResult?.let { layout ->
-                                val position = layout.getOffsetForPosition(offset)
-                                annotatedString.getStringAnnotations(
-                                    tag = "LOGIN",
-                                    start = position,
-                                    end = position
-                                ).firstOrNull()?.let {
-                                    navigateToLoginScreen()
+                BasicText(
+                    text = annotatedString,
+                    modifier = Modifier
+                        .pointerInput(Unit) {
+                            detectTapGestures { offset ->
+                                layoutResult?.let { layout ->
+                                    val position = layout.getOffsetForPosition(offset)
+                                    annotatedString.getStringAnnotations(
+                                        tag = "LOGIN",
+                                        start = position,
+                                        end = position
+                                    ).firstOrNull()?.let {
+                                        navigateToLoginScreen()
+                                    }
                                 }
                             }
-                        }
-                    },
-                onTextLayout = { layoutResult = it }
+                        },
+                    onTextLayout = { layoutResult = it }
+                )
+            }
+        }
+        if (state.isError) {
+            AppAlertDialog(
+                onDismissRequest = {
+                    vm.changeState(
+                        isError = false,
+                        errorString = ""
+                    )
+                },
+                onConfirmation = {
+                    vm.changeState(
+                        isError = false,
+                        errorString = ""
+                    )
+                },
+                dialogTitle = "That's an error",
+                dialogText = state.errorString
             )
         }
-    }
-    if (state.isError) {
-        AppAlertDialog(
-            onDismissRequest = { vm.changeState(
-                isError = false,
-                errorString = ""
-            ) },
-            onConfirmation = { vm.changeState(
-                isError = false,
-                errorString = ""
-            ) },
-            dialogTitle = "That's an error",
-            dialogText = state.errorString
-        )
+    } else {
+        FullScreenLoadingAnimation()
     }
 
 }

@@ -14,6 +14,9 @@ import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import com.example.adt_notes.presentation.components.AppAlertDialog
 import com.example.adt_notes.presentation.components.AppBigButton
 import com.example.adt_notes.presentation.components.AppOutlinedTextField
+import com.example.adt_notes.presentation.components.FullScreenLoadingAnimation
 import com.example.adt_notes.presentation.theme.NunitoSansFamily
 
 @Composable
@@ -45,113 +49,120 @@ fun LoginScreen(
     val state = vm.state
     var layoutResult by remember { mutableStateOf<TextLayoutResult?>(null) }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 30.dp)
-            .imePadding()
-            .systemBarsPadding()
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(Modifier.weight(0.15f))
-        Text(
-            text = "Login",
-            style = TextStyle(
-                fontFamily = NunitoSansFamily,
-                fontWeight = FontWeight.Bold,
-                fontSize = 60.sp,
-                color = colorScheme.onBackground
-            ),
-            modifier = Modifier.weight(0.15f)
-        )
-        Spacer(Modifier.height(40.dp))
+    if (!state.isLoading) {
         Column(
-            Modifier.fillMaxWidth().padding(horizontal = 20.dp).weight(0.65f),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 30.dp)
+                .imePadding()
+                .systemBarsPadding()
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            AppOutlinedTextField(
-                value = state.email,
-                onValueChange = { newEmail ->
-                    vm.changeState(email = newEmail)
-                },
-                placeholderText = "Email"
+            Spacer(Modifier.weight(0.15f))
+            Text(
+                text = "Login",
+                style = TextStyle(
+                    fontFamily = NunitoSansFamily,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 60.sp,
+                    color = colorScheme.onBackground
+                ),
+                modifier = Modifier.weight(0.15f)
             )
-            Spacer(Modifier.height(30.dp))
-            AppOutlinedTextField(
-                value = state.password,
-                onValueChange = { newPassword ->
-                    vm.changeState(password = newPassword)
-                },
-                placeholderText = "Password",
-                withTextHiding = true
-            )
-            Spacer(Modifier.height(50.dp))
-            AppBigButton(
-                onClick = { vm.buttonNextPressed() },
-                text = "Next"
-            )
-            Spacer(Modifier.height(20.dp))
+            Spacer(Modifier.height(40.dp))
+            Column(
+                Modifier.fillMaxWidth().padding(horizontal = 20.dp).weight(0.65f),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                AppOutlinedTextField(
+                    value = state.email,
+                    onValueChange = { newEmail ->
+                        vm.changeState(email = newEmail)
+                    },
+                    placeholderText = "Email"
+                )
+                Spacer(Modifier.height(30.dp))
+                AppOutlinedTextField(
+                    value = state.password,
+                    onValueChange = { newPassword ->
+                        vm.changeState(password = newPassword)
+                    },
+                    placeholderText = "Password",
+                    withTextHiding = true
+                )
+                Spacer(Modifier.height(50.dp))
+                AppBigButton(
+                    onClick = { vm.buttonNextPressed() },
+                    text = "Next"
+                )
+                Spacer(Modifier.height(20.dp))
 
-            val annotatedString = buildAnnotatedString {
-                withStyle(
-                    style = SpanStyle(
-                        color = colorScheme.onBackground,
-                        fontSize = 16.sp,
-                        fontFamily = NunitoSansFamily
-                    )
-                ) {
-                    append(text = "Don't have an account? ")
-                }
-
-                withAnnotation("REGISTER", "register") {
+                val annotatedString = buildAnnotatedString {
                     withStyle(
                         style = SpanStyle(
-                            color = colorScheme.primary,
+                            color = colorScheme.onBackground,
                             fontSize = 16.sp,
-                            fontFamily = NunitoSansFamily,
-                            fontWeight = FontWeight.Bold
-                        ),
+                            fontFamily = NunitoSansFamily
+                        )
                     ) {
-                        append(text = "Register")
+                        append(text = "Don't have an account? ")
+                    }
+
+                    withAnnotation("REGISTER", "register") {
+                        withStyle(
+                            style = SpanStyle(
+                                color = colorScheme.primary,
+                                fontSize = 16.sp,
+                                fontFamily = NunitoSansFamily,
+                                fontWeight = FontWeight.Bold
+                            ),
+                        ) {
+                            append(text = "Register")
+                        }
                     }
                 }
-            }
 
-            BasicText(
-                text = annotatedString,
-                modifier = Modifier
-                    .pointerInput(Unit) {
-                        detectTapGestures { offset ->
-                            layoutResult?.let { layout ->
-                                val position = layout.getOffsetForPosition(offset)
-                                annotatedString.getStringAnnotations(
-                                    tag = "REGISTER",
-                                    start = position,
-                                    end = position
-                                ).firstOrNull()?.let {
-                                    navigateToRegisterScreen()
+                BasicText(
+                    text = annotatedString,
+                    modifier = Modifier
+                        .pointerInput(Unit) {
+                            detectTapGestures { offset ->
+                                layoutResult?.let { layout ->
+                                    val position = layout.getOffsetForPosition(offset)
+                                    annotatedString.getStringAnnotations(
+                                        tag = "REGISTER",
+                                        start = position,
+                                        end = position
+                                    ).firstOrNull()?.let {
+                                        navigateToRegisterScreen()
+                                    }
                                 }
                             }
-                        }
-                    },
-                onTextLayout = { layoutResult = it }
+                        },
+                    onTextLayout = { layoutResult = it }
+                )
+            }
+        }
+        if (state.isError) {
+            AppAlertDialog(
+                onDismissRequest = {
+                    vm.changeState(
+                        isError = false,
+                        errorString = ""
+                    )
+                },
+                onConfirmation = {
+                    vm.changeState(
+                        isError = false,
+                        errorString = ""
+                    )
+                },
+                dialogTitle = "That's an error",
+                dialogText = state.errorString
             )
         }
+    } else {
+        FullScreenLoadingAnimation()
     }
-    if (state.isError) {
-        AppAlertDialog(
-            onDismissRequest = { vm.changeState(
-                isError = false,
-                errorString = ""
-            ) },
-            onConfirmation = { vm.changeState(
-                isError = false,
-                errorString = ""
-            ) },
-            dialogTitle = "That's an error",
-            dialogText = state.errorString
-        )
-    }
-
 }

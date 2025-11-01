@@ -42,8 +42,8 @@ class LoginScreenViewModel(
             viewModelScope.launch {
                 try {
                     val tokenPair = loginUsecase.invoke(state)
-                    changeState(isLoading = false)
                     navigateToNextScreen()
+                    changeState(isLoading = false)
                 } catch (e: Exception) {
                     changeState(
                         isLoading = false,
