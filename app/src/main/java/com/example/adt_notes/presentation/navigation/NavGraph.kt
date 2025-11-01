@@ -25,8 +25,12 @@ fun NavigationHost(
     navHostController: NavHostController = rememberNavController(),
     bottomNavHostController: NavHostController = rememberNavController()
 ) {
-    val loginScreenViewModel = LoginScreenViewModel(
-        navigateToNextScreen = { navHostController.navigate(NavRoutes.MAIN.route) }
+    val loginScreenViewModel: LoginScreenViewModel = koinViewModel(
+        parameters = {
+            parametersOf(
+                { navHostController.navigate(NavRoutes.MAIN.route) }
+            )
+        }
     )
     val registerScreenViewModel: RegisterScreenViewModel = koinViewModel(
         parameters = {
@@ -53,9 +57,6 @@ fun NavigationHost(
                 vm = loginScreenViewModel,
                 navigateToRegisterScreen = {
                     navHostController.navigate(NavRoutes.REGISTER.route)
-                },
-                navigateToMainScreen = {
-                    navHostController.navigate(NavRoutes.MAIN.route)
                 }
             )
         }

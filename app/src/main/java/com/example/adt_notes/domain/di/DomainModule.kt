@@ -6,7 +6,11 @@ import org.koin.dsl.module
 
 val domainModule = module {
     factory {
-        RegistrationUsecase(get())
+        RegistrationUsecase(repository = get())
+    }
+
+    factory {
+        LoginUsecase(repository = get())
     }
 
 }

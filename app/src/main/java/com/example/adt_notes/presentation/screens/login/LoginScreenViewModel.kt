@@ -5,12 +5,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.adt_notes.data.states.LoginState
 import com.example.adt_notes.domain.usecase.LoginUsecase
+import kotlinx.coroutines.launch
 import kotlin.text.ifEmpty
 
 class LoginScreenViewModel(
-    val loginUsecase: LoginUsecase = LoginUsecase(),
+    val loginUsecase: LoginUsecase,
     val navigateToNextScreen: () -> Unit
 ): ViewModel(), ViewModelProvider.Factory {
     private var _state by mutableStateOf(LoginState())
@@ -20,12 +22,14 @@ class LoginScreenViewModel(
     fun changeState(
         email: String = state.email,
         password: String = state.password,
+        isLoading: Boolean = state.isLoading,
         isError: Boolean = state.isError,
         errorString: String = state.errorString
     ) {
         _state = _state.copy(
             email = email,
             password = password,
+            isLoading = isLoading,
             isError = isError,
             errorString = errorString
         )
@@ -34,8 +38,20 @@ class LoginScreenViewModel(
     fun buttonNextPressed() {
         checkOnErrors()
         if (!state.isError) {
-//            TODO: отравить запрос на проверку данных на сервер и выполнить вход
-            navigateToNextScreen()
+            changeState(isLoading = true)
+            viewModelScope.launch {
+                try {
+                    val tokenPair = loginUsecase.invoke(state)
+                    changeState(isLoading = false)
+                    navigateToNextScreen()
+                } catch (e: Exception) {
+                    changeState(
+                        isLoading = false,
+                        isError = true,
+                        errorString = e.message ?: "Unknown error"
+                    )
+                }
+            }
         }
     }
 

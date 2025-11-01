@@ -1,6 +1,5 @@
 package com.example.adt_notes.presentation.screens.login
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -30,7 +29,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withAnnotation
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.adt_notes.presentation.components.AppAlertDialog
@@ -41,8 +39,7 @@ import com.example.adt_notes.presentation.theme.NunitoSansFamily
 @Composable
 fun LoginScreen(
     vm: LoginScreenViewModel,
-    navigateToRegisterScreen: () -> Unit,
-    navigateToMainScreen: () -> Unit
+    navigateToRegisterScreen: () -> Unit
 ) {
     val colorScheme = MaterialTheme.colorScheme
     val state = vm.state
@@ -157,17 +154,4 @@ fun LoginScreen(
         )
     }
 
-}
-
-@SuppressLint("ViewModelConstructorInComposable")
-@Preview
-@Composable
-private fun LoginScreenPreview() {
-    LoginScreen(
-        LoginScreenViewModel(
-            navigateToNextScreen = {}
-        ),
-        {},
-        {}
-    )
 }

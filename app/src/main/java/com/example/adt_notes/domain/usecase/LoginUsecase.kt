@@ -6,16 +6,16 @@ import com.example.adt_notes.data.states.RegistrationState
 import com.example.adt_notes.domain.repository.AuthRepository
 
 class LoginUsecase(
-//    private val repository: AuthRepository
+    private val repository: AuthRepository
 ) {
-//    suspend operator fun invoke(
-//        state: LoginState
-//    ): TokenPair {
-//        return repository.authenticate(
-//            email = state.email,
-//            password = state.password,
-//        )
-//    }
+    suspend operator fun invoke(
+        state: LoginState
+    ): TokenPair {
+        return repository.authenticate(
+            email = state.email,
+            password = state.password,
+        )
+    }
 
     fun checkEmail(email: String): String {
         return if (email.isEmpty()) {
