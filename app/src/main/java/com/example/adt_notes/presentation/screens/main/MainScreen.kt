@@ -23,32 +23,29 @@ fun MainScreen(
 ) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 
-    Scaffold(
-        bottomBar = { BottomNavigationBar(navController = bottomNavController) },
-        topBar = {
-            ModalNavigationDrawer(
-                drawerState = drawerState,
-                drawerContent = {
-                    ModalDrawerSheet {
-                        Column {
-                            Text(
-                                text = "Эщькере"
-                            )
-                        }
-                    }
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            ModalDrawerSheet {
+                Column {
+                    Text(text = "Эщькере")
                 }
-            ) {
-                NotesScreenTopAppBar(
-                    drawerState = drawerState
-                )
             }
-
         }
-    ) { paddingValues ->
-        BottomNavGraph(
-            modifier = Modifier.padding(paddingValues),
-            bottomNavController = bottomNavController
-        )
+    ) {
+        Scaffold(
+            topBar = {
+                NotesScreenTopAppBar(drawerState = drawerState)
+            },
+            bottomBar = {
+                BottomNavigationBar(navController = bottomNavController)
+            }
+        ) { paddingValues ->
+            BottomNavGraph(
+                modifier = Modifier.padding(paddingValues),
+                bottomNavController = bottomNavController
+            )
+        }
     }
 }
 
