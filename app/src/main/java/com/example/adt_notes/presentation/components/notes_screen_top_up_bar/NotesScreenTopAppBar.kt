@@ -1,5 +1,6 @@
 package com.example.adt_notes.presentation.components.notes_screen_top_up_bar
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -80,7 +81,8 @@ fun NotesScreenTopAppBar(
                     tint = colorScheme.primary
                 )
             }
-        }
+        },
+        modifier = Modifier.background(colorScheme.background)
     )
 }
 
