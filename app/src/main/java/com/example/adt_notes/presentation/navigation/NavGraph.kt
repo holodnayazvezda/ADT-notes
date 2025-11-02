@@ -11,6 +11,7 @@ import com.example.adt_notes.data.navigation.NavRoutes
 import com.example.adt_notes.presentation.screens.login.LoginScreen
 import com.example.adt_notes.presentation.screens.login.LoginScreenViewModel
 import com.example.adt_notes.presentation.screens.main.MainScreen
+import com.example.adt_notes.presentation.screens.main.botttom_navigation.notes.NotesScreenViewModel
 import com.example.adt_notes.presentation.screens.onboarding.OnboardingScreen
 import com.example.adt_notes.presentation.screens.register.RegisterScreen
 import com.example.adt_notes.presentation.screens.register.RegisterScreenViewModel
@@ -39,6 +40,7 @@ fun NavigationHost(
             )
         }
     )
+    val notesScreenViewModel : NotesScreenViewModel = koinViewModel()
 
     NavHost(
         navController = navHostController,
@@ -72,7 +74,8 @@ fun NavigationHost(
 
         composable(NavRoutes.MAIN.route) {
             MainScreen(
-                bottomNavController = bottomNavHostController
+                bottomNavController = bottomNavHostController,
+                notesScreenViewModel = notesScreenViewModel
             )
         }
     }

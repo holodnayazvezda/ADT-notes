@@ -7,14 +7,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.adt_notes.data.navigation.BottomNavRoutes
 import com.example.adt_notes.presentation.screens.main.botttom_navigation.CreateNoteScreen
-import com.example.adt_notes.presentation.screens.main.botttom_navigation.NotesScreen
+import com.example.adt_notes.presentation.screens.main.botttom_navigation.notes.NotesScreen
 import com.example.adt_notes.presentation.screens.main.botttom_navigation.ProfileScreen
+import com.example.adt_notes.presentation.screens.main.botttom_navigation.notes.NotesScreenViewModel
 
 @Composable
 fun BottomNavGraph(
     modifier: Modifier,
     bottomNavController: NavHostController,
     startDestination: String = BottomNavRoutes.NOTES.route,
+    notesScreenViewModel: NotesScreenViewModel
 ) {
     NavHost(
         navController = bottomNavController,
@@ -22,7 +24,9 @@ fun BottomNavGraph(
         modifier = modifier
     ) {
         composable(BottomNavRoutes.NOTES.route) {
-            NotesScreen()
+            NotesScreen(
+                notesScreenViewModel = notesScreenViewModel
+            )
         }
         composable(BottomNavRoutes.CREATE_NOTE.route) {
             CreateNoteScreen()
