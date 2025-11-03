@@ -13,6 +13,7 @@ import com.example.adt_notes.presentation.screens.login.LoginScreenViewModel
 import com.example.adt_notes.presentation.screens.main.MainScreen
 import com.example.adt_notes.presentation.screens.main.botttom_navigation.notes.NotesScreenViewModel
 import com.example.adt_notes.presentation.screens.onboarding.OnboardingScreen
+import com.example.adt_notes.presentation.screens.onboarding.OnboardingScreenViewModel
 import com.example.adt_notes.presentation.screens.register.RegisterScreen
 import com.example.adt_notes.presentation.screens.register.RegisterScreenViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -21,11 +22,11 @@ import org.koin.core.parameter.parametersOf
 @SuppressLint("ViewModelConstructorInComposable")
 @Composable
 fun NavigationHost(
-    modifier: Modifier = Modifier,
     startDestination: String = NavRoutes.ONBOARDING.route,
     navHostController: NavHostController = rememberNavController(),
     bottomNavHostController: NavHostController = rememberNavController()
 ) {
+    val onboardingScreenViewModel : OnboardingScreenViewModel = koinViewModel()
     val loginScreenViewModel: LoginScreenViewModel = koinViewModel(
         parameters = {
             parametersOf(
@@ -48,6 +49,7 @@ fun NavigationHost(
     ) {
         composable(NavRoutes.ONBOARDING.route) {
             OnboardingScreen(
+                vm = onboardingScreenViewModel,
                 nextScreen = {
                     navHostController.navigate(NavRoutes.LOGIN.route)
                 }

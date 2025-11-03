@@ -31,7 +31,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun OnboardingScreen(
-    vm: OnboardingScreenViewModel = OnboardingScreenViewModel(),
+    vm: OnboardingScreenViewModel,
     nextScreen: () -> Unit
 ) {
     val pagerState = rememberPagerState(
@@ -40,6 +40,10 @@ fun OnboardingScreen(
     )
     val colorScheme = MaterialTheme.colorScheme
     val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(pagerState.currentPage) {
+
+    }
 
     Column(
         Modifier

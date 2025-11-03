@@ -67,12 +67,3 @@ fun OnboardingItem(
         )
     }
 }
-
-
-@Preview
-@Composable
-private fun OnboardingItempPreview() {
-    OnboardingItem(
-        onboarding = OnboardingScreenViewModel().onboardingModel[0]
-    )
-}

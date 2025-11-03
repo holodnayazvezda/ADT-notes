@@ -2,10 +2,15 @@ package com.example.adt_notes.presentation.di
 
 import com.example.adt_notes.presentation.screens.login.LoginScreenViewModel
 import com.example.adt_notes.presentation.screens.main.botttom_navigation.notes.NotesScreenViewModel
+import com.example.adt_notes.presentation.screens.onboarding.OnboardingScreenViewModel
 import com.example.adt_notes.presentation.screens.register.RegisterScreenViewModel
 import org.koin.dsl.module
 
 val presentationModule = module {
+    factory {
+        OnboardingScreenViewModel(authStorage = get())
+    }
+
     factory { (navigateToNextScreen: () -> Unit) ->
         RegisterScreenViewModel(
             registrationUsecase = get(),

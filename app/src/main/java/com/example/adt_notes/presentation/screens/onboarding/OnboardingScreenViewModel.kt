@@ -1,10 +1,14 @@
 package com.example.adt_notes.presentation.screens.onboarding
 
+import androidx.lifecycle.ViewModel
 import com.example.adt_notes.R
 import com.example.adt_notes.data.models.Onboarding
+import com.example.adt_notes.data.storage.AuthStorage
 
-class OnboardingScreenViewModel {
-    public val onboardingModel = listOf(
+class OnboardingScreenViewModel(
+     val authStorage: AuthStorage
+) : ViewModel() {
+    val onboardingModel = listOf(
         Onboarding(
             imagesResId = R.drawable.onboarding_1,
             title = "Manage your\nnotes easily",
