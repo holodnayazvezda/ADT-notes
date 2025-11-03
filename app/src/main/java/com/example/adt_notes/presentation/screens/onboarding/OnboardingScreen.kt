@@ -35,14 +35,14 @@ fun OnboardingScreen(
     nextScreen: () -> Unit
 ) {
     val pagerState = rememberPagerState(
-        initialPage = 0,
+        initialPage = vm.onboardingPageNumber.intValue,
         pageCount = { vm.onboardingModel.size }
     )
     val colorScheme = MaterialTheme.colorScheme
     val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(pagerState.currentPage) {
-
+        vm.updateOnboardingPageNumber(pagerState.currentPage)
     }
 
     Column(

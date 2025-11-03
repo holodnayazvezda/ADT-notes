@@ -1,5 +1,6 @@
 package com.example.adt_notes.presentation.screens.onboarding
 
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.lifecycle.ViewModel
 import com.example.adt_notes.R
 import com.example.adt_notes.data.models.Onboarding
@@ -8,6 +9,13 @@ import com.example.adt_notes.data.storage.AuthStorage
 class OnboardingScreenViewModel(
      val authStorage: AuthStorage
 ) : ViewModel() {
+    var onboardingPageNumber = mutableIntStateOf(authStorage.onboardingPage)
+
+    fun updateOnboardingPageNumber(pageNumber: Int) {
+        authStorage.onboardingPage = pageNumber
+        onboardingPageNumber.intValue = pageNumber
+    }
+
     val onboardingModel = listOf(
         Onboarding(
             imagesResId = R.drawable.onboarding_1,

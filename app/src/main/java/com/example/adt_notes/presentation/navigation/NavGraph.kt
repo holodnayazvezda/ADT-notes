@@ -16,17 +16,32 @@ import com.example.adt_notes.presentation.screens.onboarding.OnboardingScreen
 import com.example.adt_notes.presentation.screens.onboarding.OnboardingScreenViewModel
 import com.example.adt_notes.presentation.screens.register.RegisterScreen
 import com.example.adt_notes.presentation.screens.register.RegisterScreenViewModel
+import com.example.adt_notes.presentation.screens.splash.SplashScreen
+import com.example.adt_notes.presentation.screens.splash.SplashScreenViewModel
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
 @SuppressLint("ViewModelConstructorInComposable")
 @Composable
 fun NavigationHost(
-    startDestination: String = NavRoutes.ONBOARDING.route,
+    modifier: Modifier = Modifier,
+    startDestination: String = NavRoutes.SPLASH.route,
     navHostController: NavHostController = rememberNavController(),
     bottomNavHostController: NavHostController = rememberNavController()
 ) {
     val onboardingScreenViewModel : OnboardingScreenViewModel = koinViewModel()
+    val splashScreenViewModel : SplashScreenViewModel = koinViewModel(
+        parameters = {
+            parametersOf(
+                {
+                    navHostController.navigate(NavRoutes.ONBOARDING.route)
+                },
+                {
+                    navHostController.navigate(NavRoutes.LOGIN.route)
+                }
+            )
+        }
+    )
     val loginScreenViewModel: LoginScreenViewModel = koinViewModel(
         parameters = {
             parametersOf(
@@ -47,6 +62,11 @@ fun NavigationHost(
         navController = navHostController,
         startDestination = startDestination
     ) {
+        composable(NavRoutes.SPLASH.route) {
+            SplashScreen(
+                vm = splashScreenViewModel
+            )
+        }
         composable(NavRoutes.ONBOARDING.route) {
             OnboardingScreen(
                 vm = onboardingScreenViewModel,
