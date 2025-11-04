@@ -22,30 +22,16 @@ fun MainScreen(
     bottomNavController: NavHostController,
     notesScreenViewModel: NotesScreenViewModel
 ) {
-    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-
-    ModalNavigationDrawer(
-        drawerState = drawerState,
-        drawerContent = {
-            DrawerLayout(
-                notesScreenViewModel = notesScreenViewModel
-            )
+    Scaffold(
+        bottomBar = {
+            BottomNavigationBar(navController = bottomNavController)
         }
-    ) {
-        Scaffold(
-            topBar = {
-                NotesScreenTopAppBar(drawerState = drawerState)
-            },
-            bottomBar = {
-                BottomNavigationBar(navController = bottomNavController)
-            }
-        ) { paddingValues ->
-            BottomNavGraph(
-                modifier = Modifier.padding(paddingValues),
-                bottomNavController = bottomNavController,
-                notesScreenViewModel = notesScreenViewModel
-            )
-        }
+    ) { paddingValues ->
+        BottomNavGraph(
+            modifier = Modifier.padding(paddingValues),
+            bottomNavController = bottomNavController,
+            notesScreenViewModel = notesScreenViewModel
+        )
     }
 }
 
