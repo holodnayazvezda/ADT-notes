@@ -7,11 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.adt_notes.data.states.LoginState
+import com.example.adt_notes.data.storage.AuthStorage
 import com.example.adt_notes.domain.usecase.LoginUsecase
 import kotlinx.coroutines.launch
 import kotlin.text.ifEmpty
 
 class LoginScreenViewModel(
+    val authStorage: AuthStorage,
     val loginUsecase: LoginUsecase,
     val navigateToNextScreen: () -> Unit
 ): ViewModel(), ViewModelProvider.Factory {
@@ -42,6 +44,7 @@ class LoginScreenViewModel(
             viewModelScope.launch {
                 try {
                     val tokenPair = loginUsecase.invoke(state)
+                    authStorage.accessToken = tokenPair.accessToken
                     navigateToNextScreen()
                     changeState(isLoading = false)
                 } catch (e: Exception) {

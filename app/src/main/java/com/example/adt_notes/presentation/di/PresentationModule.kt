@@ -22,6 +22,7 @@ val presentationModule = module {
 
     factory { (navigateToNextScreen: () -> Unit) ->
         RegisterScreenViewModel(
+            authStorage = get(),
             registrationUsecase = get(),
             navigateToNextScreen = navigateToNextScreen
         )
@@ -29,6 +30,7 @@ val presentationModule = module {
 
     factory { (navigateToNextScreen: () -> Unit) ->
         LoginScreenViewModel(
+            authStorage = get(),
             loginUsecase = get(),
             navigateToNextScreen = navigateToNextScreen
         )

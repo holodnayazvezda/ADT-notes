@@ -6,10 +6,12 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.adt_notes.data.states.RegistrationState
+import com.example.adt_notes.data.storage.AuthStorage
 import com.example.adt_notes.domain.usecase.RegistrationUsecase
 import kotlinx.coroutines.launch
 
 class RegisterScreenViewModel(
+    val authStorage: AuthStorage,
     val registrationUsecase: RegistrationUsecase,
     val navigateToNextScreen: () -> Unit
 ) : ViewModel() {
@@ -44,6 +46,7 @@ class RegisterScreenViewModel(
             viewModelScope.launch {
                 try {
                     val tokenPair = registrationUsecase.invoke(state)
+                    authStorage.accessToken = tokenPair.accessToken
                     navigateToNextScreen()
                     changeState(isLoading = false)
                 } catch (e: Exception) {
