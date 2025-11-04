@@ -4,6 +4,7 @@ import com.example.adt_notes.data.network.api.ApiService
 import com.example.adt_notes.data.network.dto.AuthRequestDto
 import com.example.adt_notes.data.network.dto.RegisterRequestDto
 import com.example.adt_notes.data.network.dto.TokenPair
+import com.example.adt_notes.data.network.dto.UserResponseDTO
 import com.example.adt_notes.data.network.errors.NetworkErrorHandler
 import com.example.adt_notes.domain.repository.AuthRepository
 
@@ -46,5 +47,9 @@ class AuthRepositoryImpl(
             val message = NetworkErrorHandler.getErrorMessage(e)
             throw Exception(message)
         }
+    }
+
+    override suspend fun getAuthorizedUser(accessToken: String): UserResponseDTO {
+        return api.getAuthorizedUser(accessToken)
     }
 }

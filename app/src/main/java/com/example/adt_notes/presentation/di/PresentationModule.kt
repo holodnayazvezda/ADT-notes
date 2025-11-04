@@ -8,11 +8,20 @@ import com.example.adt_notes.presentation.screens.splash.SplashScreenViewModel
 import org.koin.dsl.module
 
 val presentationModule = module {
-    factory { (navigateToOnboarding: () -> Unit, navigateToLogin: () -> Unit) ->
+    factory {
+        (
+            navigateToOnboarding: () -> Unit,
+            navigateToLogin: () -> Unit,
+            navigateToRegistration: () -> Unit,
+            navigateToMain: () -> Unit
+        ) ->
         SplashScreenViewModel(
+            splashScreenUsecase = get(),
             authStorage = get(),
             navigateToOnboarding = navigateToOnboarding,
-            navigateToLogin = navigateToLogin
+            navigateToLogin = navigateToLogin,
+            navigateToRegistration = navigateToRegistration,
+            navigateToMain = navigateToMain
         )
     }
 

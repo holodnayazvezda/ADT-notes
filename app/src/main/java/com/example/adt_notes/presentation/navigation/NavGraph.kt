@@ -33,12 +33,10 @@ fun NavigationHost(
     val splashScreenViewModel : SplashScreenViewModel = koinViewModel(
         parameters = {
             parametersOf(
-                {
-                    navHostController.navigate(NavRoutes.ONBOARDING.route)
-                },
-                {
-                    navHostController.navigate(NavRoutes.LOGIN.route)
-                }
+                { navHostController.navigate(NavRoutes.ONBOARDING.route) },
+                { navHostController.navigate(NavRoutes.LOGIN.route) },
+                { navHostController.navigate(NavRoutes.REGISTER.route) },
+                { navHostController.navigate(NavRoutes.MAIN.route) }
             )
         }
     )
