@@ -1,6 +1,6 @@
 package com.example.adt_notes.data.network.errors
 
-import com.example.adt_notes.data.network.dto.ErrorResponseDTO
+import com.example.adt_notes.data.network.dto.ErrorResponseDto
 import com.google.gson.Gson
 import retrofit2.HttpException
 import java.io.IOException
@@ -12,7 +12,7 @@ object NetworkErrorHandler {
             is HttpException -> {
                 val errorBody = e.response()?.errorBody()?.string()
                 val parsed = try {
-                    Gson().fromJson(errorBody, ErrorResponseDTO::class.java)
+                    Gson().fromJson(errorBody, ErrorResponseDto::class.java)
                 } catch (_: Exception) {
                     null
                 }

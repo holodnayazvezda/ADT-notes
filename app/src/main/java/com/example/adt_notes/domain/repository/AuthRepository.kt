@@ -1,7 +1,7 @@
 package com.example.adt_notes.domain.repository
 
 import com.example.adt_notes.data.network.dto.TokenPair
-import com.example.adt_notes.data.network.dto.UserResponseDTO
+import com.example.adt_notes.data.network.dto.UserResponseDto
 
 interface AuthRepository {
     suspend fun register(
@@ -18,5 +18,5 @@ interface AuthRepository {
 
     suspend fun getAuthorizedUser(
         accessToken: String
-    ): UserResponseDTO
+    ): UserResponseDto
 }

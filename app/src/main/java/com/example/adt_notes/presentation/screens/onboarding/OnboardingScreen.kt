@@ -140,6 +140,7 @@ fun OnboardingScreen(
                         color = colorScheme.primary.copy(alpha = 0.9f)
                     ),
                     modifier = Modifier.clickable {
+                        vm.updateOnboardingPageNumber(2)
                         nextScreen()
                     }
                 )

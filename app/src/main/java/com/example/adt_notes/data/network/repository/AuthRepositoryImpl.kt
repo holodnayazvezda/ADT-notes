@@ -4,7 +4,7 @@ import com.example.adt_notes.data.network.api.ApiService
 import com.example.adt_notes.data.network.dto.AuthRequestDto
 import com.example.adt_notes.data.network.dto.RegisterRequestDto
 import com.example.adt_notes.data.network.dto.TokenPair
-import com.example.adt_notes.data.network.dto.UserResponseDTO
+import com.example.adt_notes.data.network.dto.UserResponseDto
 import com.example.adt_notes.data.network.errors.NetworkErrorHandler
 import com.example.adt_notes.domain.repository.AuthRepository
 
@@ -49,7 +49,7 @@ class AuthRepositoryImpl(
         }
     }
 
-    override suspend fun getAuthorizedUser(accessToken: String): UserResponseDTO {
+    override suspend fun getAuthorizedUser(accessToken: String): UserResponseDto {
         return api.getAuthorizedUser(accessToken)
     }
 }

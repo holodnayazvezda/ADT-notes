@@ -3,7 +3,7 @@ package com.example.adt_notes.data.network.api
 import com.example.adt_notes.data.network.dto.AuthRequestDto
 import com.example.adt_notes.data.network.dto.RegisterRequestDto
 import com.example.adt_notes.data.network.dto.TokenPair
-import com.example.adt_notes.data.network.dto.UserResponseDTO
+import com.example.adt_notes.data.network.dto.UserResponseDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -23,5 +23,5 @@ interface ApiService {
     @GET("/user/me")
     suspend fun getAuthorizedUser(
         @Header("Authorization") accessToken: String
-    ): UserResponseDTO
+    ): UserResponseDto
 }
