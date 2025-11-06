@@ -18,6 +18,7 @@ val presentationModule = module {
         SplashScreenViewModel(
             splashScreenUsecase = get(),
             authStorage = get(),
+            appStorage = get(),
             navigateToOnboarding = navigateToOnboarding,
             navigateToLogin = navigateToLogin,
             navigateToRegistration = navigateToRegistration,

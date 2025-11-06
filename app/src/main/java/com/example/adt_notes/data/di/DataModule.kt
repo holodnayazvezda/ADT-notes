@@ -2,6 +2,7 @@ package com.example.adt_notes.data.di
 
 import com.example.adt_notes.data.network.api.ApiService
 import com.example.adt_notes.data.network.repository.AuthRepositoryImpl
+import com.example.adt_notes.data.storage.AppStorage
 import com.example.adt_notes.data.storage.AuthStorage
 import com.example.adt_notes.data.storage.Storage
 import com.example.adt_notes.domain.repository.AuthRepository
@@ -35,5 +36,9 @@ val dataModule = module {
 
     single {
         AuthStorage(context = get())
+    }
+
+    single {
+        AppStorage(context = get())
     }
 }

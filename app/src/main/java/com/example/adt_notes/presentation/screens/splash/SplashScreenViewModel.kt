@@ -1,9 +1,8 @@
 package com.example.adt_notes.presentation.screens.splash
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.adt_notes.data.models.Onboarding
+import com.example.adt_notes.data.storage.AppStorage
 import com.example.adt_notes.data.storage.AuthStorage
 import com.example.adt_notes.domain.usecase.SplashScreenUsecase
 import kotlinx.coroutines.launch
@@ -11,6 +10,7 @@ import kotlinx.coroutines.launch
 class SplashScreenViewModel(
     val splashScreenUsecase: SplashScreenUsecase,
     val authStorage: AuthStorage,
+    val appStorage: AppStorage,
     val navigateToOnboarding: () -> Unit,
     val navigateToLogin: () -> Unit,
     val navigateToRegistration: () -> Unit,
@@ -24,6 +24,9 @@ class SplashScreenViewModel(
                         val userModel = splashScreenUsecase.invoke(
                             authStorage.accessToken!!
                         )
+                        appStorage.userName = userModel.name
+                        appStorage.userEmail = userModel.email
+                        appStorage.userRole = userModel.role
                         navigateToMain()
                     } catch (e: Exception) {
                         navigateToLogin()
